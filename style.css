@@ -1,0 +1,150 @@
+/*
+Theme Name: Marc Borrell — Portfolio
+Theme URI: https://marcborrell.com
+Author: Marc Borrell
+Description: Tema 100% propio para el portfolio final de curso de desarrollo web. Mobile-first, basado en el sistema de diseño definido en Figma (Fraunces + Inter, paleta crema/burdeos).
+Version: 1.0.0
+Requires at least: 6.0
+Requires PHP: 7.4
+Text Domain: marcborrell
+*/
+
+/* ==========================================================================
+   1. DESIGN TOKENS — derivados directamente del sistema de diseño en Figma
+   ========================================================================== */
+:root {
+  /* Colores */
+  --color-bg: #FAF6F0;          /* crema de fondo */
+  --color-bg-alt: #FFFFFF;      /* blanco — usado puntualmente (ej. footer) */
+  --color-text: #2B2622;        /* carbón */
+  --color-text-muted: #6E6358;  /* marrón apagado — enlaces secundarios, iconos sociales */
+  --color-accent: #7A2E33;      /* burdeos */
+  --color-pill-bg: #E4DCD2;     /* fondo de etiquetas de tecnología */
+
+  /* Tipografía */
+  --font-heading: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Espaciado base (escala de 4px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+
+  /* Breakpoints de referencia (mobile-first, ver media queries más abajo) */
+  --bp-tablet: 768px;
+  --bp-desktop: 1440px;
+
+  /* Transiciones */
+  --transition-base: 200ms ease;
+}
+
+/* ==========================================================================
+   2. RESET BASE
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, textarea, select { font: inherit; }
+h1, h2, h3, h4, p { margin: 0; }
+
+/* Foco visible accesible en toda la web */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-accent);
+  color: #fff;
+  padding: var(--space-2) var(--space-3);
+  z-index: 1000;
+}
+.skip-link:focus { left: var(--space-2); top: var(--space-2); }
+
+/* ==========================================================================
+   3. TIPOGRAFÍA
+   ========================================================================== */
+h1, h2, h3, .font-heading {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-text);
+}
+
+h1 { font-size: 1.75rem; }   /* 28px mobile */
+h2 { font-size: 1.25rem; }   /* 20px mobile */
+h3 { font-size: 1.0625rem; } /* 17px mobile */
+
+@media (min-width: 768px) {
+  h1 { font-size: 2rem; }      /* 32px tablet */
+  h2 { font-size: 1.375rem; }  /* 22px tablet */
+  h3 { font-size: 1.1875rem; } /* 19px tablet */
+}
+
+@media (min-width: 1440px) {
+  h1 { font-size: 2.25rem; }  /* 36px desktop — coincide con títulos de página en Figma */
+  h2 { font-size: 1.5rem; }   /* 24px desktop — coincide con "Proyectos destacados" etc. */
+  h3 { font-size: 1.25rem; }  /* 20px desktop */
+}
+
+.text-muted { color: var(--color-text-muted); }
+
+/* ==========================================================================
+   4. LAYOUT BASE
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: 1392px; /* 1440 - 24*2 de margen, según el frame de Figma */
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .container { padding-inline: var(--space-4); }
+}
+
+/* Nota: NO se usa overflow-x:hidden en .site-main — eso rompe
+   position:sticky en los descendientes (ej. la ficha de conceptos
+   clave de cada actividad). Si algún componente concreto necesita
+   recortar su propio desbordamiento horizontal (ej. el hero a sangre
+   completa), se le aplica overflow:hidden a ese componente en
+   particular, no al contenedor general. */
+
+/* El resto de estilos por componente (header, footer, tarjetas, hero...)
+   se cargan en archivos separados durante la fase de maquetación,
+   para mantener este fichero legible mientras se construye la estructura. */

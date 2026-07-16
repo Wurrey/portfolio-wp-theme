@@ -1,0 +1,31 @@
+# Marc Borrell — Portfolio de desarrollo web
+
+> Portfolio de Marc Borrell, desarrollador web frontend en formación. Contiene proyectos y actividades del curso de desarrollo web, organizados por tecnología (HTML, CSS, JavaScript, Bootstrap, WordPress, Figma). Construido con un tema WordPress 100% propio y con Claude como compañero de proceso.
+
+## Sobre el autor
+
+Marc Borrell es un profesional en transición del sector administrativo y contable al desarrollo web frontend. Este portfolio documenta ese proceso de aprendizaje a través de 30 actividades prácticas del curso.
+
+## Páginas principales
+
+- [Inicio](https://wurrey.com): Presentación del portfolio y acceso a los proyectos destacados.
+- [Proyectos / Actividades](https://wurrey.com/actividades/): Listado completo de las 30 actividades del curso, filtrables por tecnología y ordenables por fecha.
+- [Sobre mí](https://wurrey.com/sobre-mi/): Presentación personal, trayectoria profesional y tecnologías dominadas.
+- [Contacto](https://wurrey.com/contacto/): Formulario de contacto y redes sociales.
+- [El proceso](https://wurrey.com/proceso/): Documentación del proceso de desarrollo del proyecto final.
+
+## Recursos externos del proyecto
+
+- [Memoria](https://wurrey.com/memoria/): Documentación completa del proceso de desarrollo — decisiones de diseño, arquitectura, tecnologías y retos resueltos.
+- [Exposición](https://wurrey.com/exposicion/): Presentación del proyecto ante el tribunal del curso.
+
+## Tecnologías usadas
+
+HTML, CSS, JavaScript, Bootstrap, WordPress, Figma, PHP, MySQL, Apache (.htaccess).
+
+## Perfiles
+
+- GitHub: https://github.com/Wurrey
+- LinkedIn: https://www.linkedin.com/in/marc-borrell-capdevila-2b3539101
+- CodePen: https://codepen.io/Wurrey
+- Instagram: https://www.instagram.com/marcborrellcapdevila/

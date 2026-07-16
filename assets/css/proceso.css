@@ -1,0 +1,107 @@
+/* ==========================================================================
+   PÁGINA DE PROCESO — landing intermedia entre portfolio, Memoria y Exposición
+   ========================================================================== */
+
+.proceso-landing {
+  padding-block: var(--space-6) var(--space-7);
+  max-width: 860px;
+}
+
+.proceso-landing__intro {
+  margin-bottom: var(--space-6);
+}
+
+.proceso-landing__intro h1 {
+  margin-bottom: var(--space-2);
+}
+
+.proceso-landing__intro p {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 60ch;
+}
+
+/* Tarjetas */
+.proceso-landing__cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .proceso-landing__cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.proceso-card {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid var(--color-pill-bg);
+  border-radius: 12px;
+  padding: var(--space-5);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.proceso-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 16px rgba(43, 38, 34, 0.08);
+}
+
+.proceso-card__icono {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.375rem;
+  color: var(--color-accent);
+}
+
+.proceso-card__texto h2 {
+  font-size: 1.125rem;
+  margin-bottom: var(--space-1);
+  color: var(--color-text);
+}
+
+.proceso-card__texto p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: var(--space-3);
+}
+
+.proceso-card__cta {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+/* Contacto al pie */
+.proceso-landing__contacto {
+  border-top: 1px solid var(--color-pill-bg);
+  padding-top: var(--space-4);
+}
+
+.proceso-landing__contacto p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.proceso-landing__contacto a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.proceso-landing__contacto a:hover {
+  text-decoration: underline;
+}

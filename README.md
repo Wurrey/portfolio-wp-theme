@@ -1,109 +1,65 @@
-# Tema "Marc Borrell" — guía de puesta en marcha
+# portfolio-wp-theme
 
-## 1. Subir el tema
-Sube toda la carpeta `marcborrell/` (tal cual, sin descomprimir nada dentro) a:
-`/wp-content/themes/` vía FileZilla o WP File Manager.
+Tema WordPress custom para portfolio personal — CPT, taxonomía, filtrado AJAX y metaboxes a medida.
 
-## 2. Activarlo
-Escritorio de WordPress → Apariencia → Temas → Activar "Marc Borrell — Portfolio".
+Construido desde cero como proyecto final de un bootcamp de desarrollo web, sin frameworks de terceros ni page builders. En producción en [wurrey.com](https://wurrey.com).
 
-Al activarlo se crean automáticamente los 6 términos de tecnología
-(HTML, CSS, JavaScript, Bootstrap, Figma, WordPress) — no hace falta
-crearlos a mano.
+## Qué incluye
 
-## 3. Permalinks
-Ajustes → Enlaces permanentes → elegir **"Nombre de la entrada"** y guardar.
-Sin esto, las URLs de las actividades (`/actividades/nombre-actividad/`)
-no funcionarán correctamente.
+- **Custom Post Type "Actividad"** + taxonomía no jerárquica "Tecnología", para catalogar proyectos por stack (HTML, CSS, JavaScript, Bootstrap, WordPress, Figma).
+- **Filtrado AJAX** por tecnología con `tax_query` y actualización de la URL vía `pushState` — cada filtro es una URL real y compartible, sin recargar la página.
+- **Paginación "Cargar más"** vía AJAX.
+- **Metaboxes a medida**:
+  - *Evolución y versiones*: pasos del proceso de cada actividad, con imagen y texto alternados.
+  - *Ficha — conceptos clave*: resumen de aprendizaje + cita destacada en la barra lateral.
+- **Formulario de contacto** funcional vía `wp_mail()`, con destinatario configurable desde el Customizer (independiente del `admin_email` de WordPress).
+- **JS vanilla** (sin librerías): preloader, barra de progreso de scroll, botón "volver arriba", animaciones con `IntersectionObserver` (incluye tarjetas cargadas por AJAX), modal de imagen, validación de formulario.
+- **SEO/AEO**: integrado con Rank Math (schema `Person`/`Organization` con `sameAs`, Article, WebSite), enlaces `rel="me"` a redes sociales.
 
-## 4. Crear las 2 páginas (Inicio y Proyectos/Actividades NO hacen falta)
-La portada (Inicio) la genera `front-page.php`, y el listado de
-actividades lo genera automáticamente WordPress en cuanto el tema está
-activo, gracias al registro del Custom Post Type:
+## Stack
 
-- **Todas las actividades**: `tudominio.com/actividades/`
-  (plantilla `archive-actividad.php`)
-- **Filtradas por tecnología**: `tudominio.com/tecnologia/css/`,
-  `tudominio.com/tecnologia/html/`, etc. — una URL real y compartible
-  por cada tecnología (plantilla `taxonomy-tecnologia.php`)
+PHP · MySQL · JavaScript vanilla · WordPress (sin frameworks CSS ni page builders)
 
-No hay que crear ninguna Página para esto. Al pulsar un filtro en el
-sitio, el cambio ocurre en la misma página (sin recargar, tal y como
-se decidió) pero la URL del navegador también se actualiza por debajo,
-así que cualquier filtro se puede compartir como enlace directo.
+## Estructura
 
-Sí tienes que crear estas 2 páginas desde Páginas → Añadir nueva,
-y en el panel lateral derecho "Atributos de página" → Plantilla,
-asignar la plantilla indicada:
+```
+inc/
+  post-types.php          → registro del CPT "actividad"
+  taxonomies.php          → taxonomía "tecnologia"
+  ajax-actividades.php    → filtrado y paginación AJAX
+  metabox-evolucion.php   → metabox "Evolución y versiones"
+  metabox-ficha.php       → metabox "Ficha — conceptos clave"
+  contact-form.php        → procesamiento del formulario de contacto
+  customizer.php          → opciones expuestas en el Customizer
+  theme-setup.php         → soporte de tema, menús, imágenes destacadas
+  enqueue.php             → carga de estilos y scripts
+  template-helpers.php    → funciones auxiliares reutilizables
+  seo-actividades.php     → ajustes SEO específicos del CPT
+template-parts/           → partials reutilizables (listado, tarjetas)
+assets/
+  css/                    → estilos por componente
+  js/main.js              → toda la interactividad del front
+```
 
-| Página       | Slug (URL)  | Plantilla a asignar       |
-|--------------|-------------|----------------------------|
-| Sobre mí     | `sobre-mi`  | Sobre mí                   |
-| Contacto     | `contacto`  | Contacto                   |
+## Uso
 
-Importante: el slug debe ser exactamente `sobre-mi` y `contacto`
-(WordPress los genera solos a partir del título si los títulos son
-"Sobre mí" y "Contacto" — pero conviene revisarlo en "Editar enlace
-permanente" antes de publicar).
+Pensado para adaptarse a cualquier portfolio personal, no solo al mío. Para ponerlo en marcha:
 
-## 5. Crear el menú
-Apariencia → Menús → crear un menú nuevo. Para "Proyectos /
-Actividades" verás un panel "Actividades" en la columna izquierda
-(activa "Ver todo" si no aparece) con un enlace de Archivo ya listo
-para añadir — eso enlaza directamente a `/actividades/`. Si no
-aparece, añade un Enlace personalizado con la URL `/actividades/` y el
-texto "Proyectos / Actividades".
+1. Sube la carpeta a `/wp-content/themes/` y actívalo desde Apariencia → Temas.
+2. Al activarlo se crean automáticamente los términos de tecnología (editables desde el escritorio).
+3. En Ajustes → Enlaces permanentes, elige "Nombre de la entrada" y guarda — necesario para que las URLs de actividades y filtros funcionen.
+4. Crea las páginas "Sobre mí" y "Contacto" con sus plantillas correspondientes (Atributos de página → Plantilla).
+5. Configura el menú principal y el email de contacto desde el Customizer.
 
-En total el menú debe llevar: Inicio (enlace personalizado a `/`),
-Proyectos / Actividades, Sobre mí, Contacto.
-Asignarlo a la ubicación **"Menú principal"**.
+## Contexto del proyecto
 
-## 6. Crear las actividades
-Aparecerá un nuevo apartado "Actividades" en el menú lateral del
-escritorio. Cada actividad se crea como una entrada normal: título,
-contenido (descripción), imagen destacada (la imagen de la tarjeta) y,
-en el panel lateral, las "Tecnologías" correspondientes (puedes marcar
-varias a la vez — por eso las actividades 1 y 2 podrán llevar a la vez
-HTML y CSS, por ejemplo).
+Este tema es la pieza central de mi proyecto final de bootcamp. La documentación completa del proceso — decisiones de diseño, arquitectura, retos técnicos — está en la [Memoria](https://wurrey.com/memoria/), y la presentación para el tribunal en la [Exposición](https://wurrey.com/exposicion/).
 
-## 7. Pendiente para la fase de contenido (no estructura)
-- **CodePen en el footer**: el icono usa de momento la clase
-  `bi-code-slash` de Bootstrap Icons como placeholder, porque Bootstrap
-  Icons no tiene un logo de CodePen real (lo comprobamos en Figma). Si
-  quieres usar exactamente el SVG que localizaste para el prototipo,
-  habrá que sustituir ese `<i class="bi bi-code-slash">` en `footer.php`
-  por el `<svg>` real.
-- **URLs de las redes sociales**: ahora mismo apuntan a marcadores
-  genéricos (`github.com/`, `linkedin.com/`, etc.) en
-  `inc/template-helpers.php` → función `marcborrell_social_links()`.
-  Hay que poner tus URLs reales ahí.
-- **"Evolución y versiones" de cada actividad**: la estructura ya
-  alterna imagen izquierda/derecha automáticamente, pero los pasos se
-  rellenan por código (meta `actividad_evolucion`) — en la fase de
-  contenido lo más cómodo será que te prepare un metabox sencillo en
-  el editor para que los rellenes tú mismo sin tocar código.
-- **Imagen del hero de Inicio**: usa la imagen destacada de la propia
-  portada. Como no hay una "página" de Inicio en el escritorio (la
-  genera `front-page.php` automáticamente), esa imagen destacada se
-  asignará desde Ajustes o se cambiará a una ruta fija — lo resolvemos
-  en la fase de contenido.
+## Autor
 
-## 8. Lo que SÍ funciona ya, en cuanto subas el tema
-- Estructura completa de las 5 páginas y navegación.
-- Menú hamburguesa en móvil.
-- Custom Post Type "Actividad" con su propia URL y campo de
-  Tecnologías (multi-selección).
-- Filtro de tecnología en Proyectos/Actividades — funciona de verdad
-  contra la base de datos (no solo oculta tarjetas con CSS), y cada
-  filtro tiene su propia URL real y compartible (`/tecnologia/css/`),
-  generada automáticamente por la jerarquía de plantillas de WordPress.
-- Botón "Cargar más" con paginación real vía AJAX.
-- Formulario de Contacto funcional (envía un email a la cuenta de
-  administrador de WordPress).
-- Tokens de diseño (colores, tipografías) ya cargados en `style.css`,
-  fuentes Fraunces + Inter cargadas vía Google Fonts, e iconos
-  Bootstrap Icons cargados vía CDN.
+**Marc Borrell** — de administración/contabilidad a desarrollo frontend.
 
-Lo que falta es la maquetación visual fina (CSS de cada componente
-para que coincida pixel a pixel con Figma) y el contenido real de las
-29 actividades — el siguiente paso natural.
+- Portfolio: [wurrey.com](https://wurrey.com)
+- GitHub: [@Wurrey](https://github.com/Wurrey)
+- LinkedIn: [Marc Borrell Capdevila](https://www.linkedin.com/in/marc-borrell-capdevila-2b3539101)
+- CodePen: [@Wurrey](https://codepen.io/Wurrey)
